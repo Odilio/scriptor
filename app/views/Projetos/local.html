@@ -1,0 +1,17 @@
+#{extends 'templateprojeto.html'/}
+
+ 
+ 	#{form @Projetos.novoLocal(),enctype:'multipart/form-data' }
+    	<fieldset><p><label for='inp'>Titulo do Local Aqui</label><input class="form-control" type="text" id="inp" value="${local?.loc_nome}" name="local.loc_nome"/></fieldset>
+    	<fieldset><p><label for='aaa'>Referencia para local ex: @londres</label><input class="form-control" type="text" id="aaa" value="${local?.loc_referencia}" name="local.loc_referencia"/></fieldset>
+    	<input type="hidden"  id="inp" name="pro_codigo" value="${projeto.pro_codigo}"/>
+    	<input type="hidden"  id="inp" name="local.loc_codigo" value="${local?.loc_codigo}"/>
+	Imagem do local: Não obrigatorio <input class="btn btn-default" type="file" name="local?.loc_imagem">
+		<textarea cols="80" id="editor1" name="local.loc_descricao" rows="10">
+	${local?.loc_descricao}
+		</textarea>
+		 <input type="submit" class="btn btn-primary"></input>
+		#{/form} 
+	
+    	
+	

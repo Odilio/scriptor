@@ -1,0 +1,15 @@
+#{extends 'templateprojeto.html'/}
+
+ 
+ 	<form action="@{Projetos.novaNota()}" method="post" id="formpro">
+    	<fieldset><p><label for='inp'>Titulo da Nota Aqui</label><input class="form-control" type="text" id="inp" value="${nota?.not_titulo}" name="nota.not_titulo"/></fieldset>
+    	<input type="hidden"  id="inp" name="pro_codigo" value="${projeto.pro_codigo}"/>
+	<input type="hidden"  id="inp" name="nota.not_codigo" value="${nota?.not_codigo}"/>
+		<textarea cols="80" id="editor1" name="nota.not_texto" rows="10">
+	${nota?.not_texto}
+		</textarea>
+		<input type="submit" class="btn btn-primary"></input>
+		</form> 
+	
+    	
+	

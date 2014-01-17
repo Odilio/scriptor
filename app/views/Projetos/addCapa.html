@@ -1,0 +1,69 @@
+#{extends 'template.html'/}
+
+
+<body style=" margin: 0px;padding: 0px; font-style: courier" >
+
+
+
+
+	#{include 'main.html'/}
+	<div  style="float: left; width: 100%;height: 80%">
+
+	 #{include 'panelperfil.html'/}
+
+		<div class="bod" id="largeData" style="float: left;width: 64%;">
+  <center><h2>${projeto.pro_titulo}</h2></center>
+  <h3>Adcione uma capa para o seu projeto</h3>
+     
+  
+ 		
+
+  
+    #{form @salvarCapa(projeto),enctype:'multipart/form-data'}
+    	  <p class="field">
+      <input class="btn btn-default" type="file" name="projeto.pro_imagem">
+     
+         </p>
+          <p class="buttons">
+        <input class="btn btn-default" type="submit" value="Salvar"> <a href="@{Projetos.index()}">Cancelar</a>
+    </p>
+      #{/form}    
+    	
+	
+
+ 
+<script type="text/javascript">
+   $('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+   $("#paneltab").contextMenu({ menu: 'myMenu', leftButton: true });
+   
+ 
+   });
+  $(document).bind("contextmenu",function(e){
+			    return false;
+}); 
+       
+    
+ $("#a").contextMenu({ menu: 'myMenu', leftButton: true });
+</script>
+
+
+</div>
+
+ #{include 'busca.html'/}
+       
+
+     
+  
+
+<ul id="myMenu" class="contextMenu">
+            <li class="edit"><a href="@{Projetos.capitulo(items:projetos)}">Novo Capitulo</a></li>
+            <li class="copy"><a href="http://www.dzone.com/links/r/an_easy_timesaver_to_create_java_classes_from_jso.html">Nova Nota</a></li>
+            <li class="copy"><a href="#copiar">Novo Personagem</a></li>
+            <li class="paste"><a href="#colar">Novo Cenario</a></li>
+            <li class="quit separator"><a href="#deletar">Adcionar Capa</a></li>
+            <li class="paste"><a href="#sair">Adcionar Contra-Capa</a></li>
+        </ul>
+</body>
+

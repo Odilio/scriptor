@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Waterwheel Carousel Demonstration Test</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/demo.css'}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/waterwheel-carousel.css'}" />
+         <script type="text/javascript" src="@{'/public/javascripts/jquery-1.7.min.js'}"></script>
+    <script type="text/javascript" src="@{'/public/javascripts/jquery.waterwheelCarousel.min.js'}"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#waterwheel-carousel-default").waterwheelCarousel();
+        
+      
+      });
+    </script>
+  </head>
+  <body>
+   
+    <!-- BEGIN COPYING HERE -->
+    <div id="waterwheel-carousel-default">
+      
+      <div class="carousel-images">
+       <img src="@{'/public/images/perfil do bar redesocial.jpg'}"  /> 
+<img  src="@{'/public/images/perfilamigo redesocial.jpg'}"  /> 
+<img  src="@{'/public/images/principal redesocial.jpg'}"  /> 
+      <img  src="@{'/public/images/Lista de Bares redesocial.jpg'}"  /> 
+      </div>
+    </div>
+  
+  </body>
+</html>
+

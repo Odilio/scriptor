@@ -1,0 +1,31 @@
+/*
+	Written by Eric Myer
+	Source: http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/
+*/
+
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: "";
+}
+blockquote, q {
+	quotes: "" "";
+}

@@ -1,0 +1,32 @@
+<div  style="background-color: #e9e9e9;">
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+   <div class="container">
+   <div class="collapse navbar-collapse">
+
+           <ul class="nav navbar-nav">
+		             <li class="active"><a href="@{Timeline.teste(user)}" class="${request.action =~ /teste/ ? 'selected' : ''}">Inicio</a></li>
+		             <li><a href="@{Projetos.index(qtdAmigos)}" class="${request.action =~ /index/ ? 'selected' : ''}">Projetos</a></li>
+		             <li><a href="@{Livros.index()}" class="${request.action =~ /index/ ? 'selected' : ''}">Livros</a></li>
+		             <li><a href="@{Estante.index()}" class="${request.action =~ /index/ ? 'selected' : ''}">Minha Biblioteca</a></li>
+		             
+
+        </ul>
+        <span class="navbar-form navbar-right">
+        <ul class="nav navbar-nav">
+		             <li> 
+         #{if user?.usu_codigo}
+   <a href="@{Application.logout()}" class="${request.action =~ /index/ ? 'selected' : ''}">Logout | ${user.usu_nome}</a>
+    #{/if}
+    </li>
+    </ul>
+        </span>
+        
+         </div>
+         </div>
+         </div>
+        <br><br><br>
+
+
+
+

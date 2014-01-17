@@ -1,0 +1,55 @@
+#{extends 'template.html'/}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <body style="margin: 0px;padding: 0px; font-style: courier" >
+<br>
+  <div style="width: 100%;height: 100%">
+
+#{include 'main.html'/}
+<div  style="float: left; width: 100%;height: 77%">
+
+#{include 'panelperfil.html'/}
+        
+<div class="body" id="largeData" style="float: left;width: 60%;"></div>
+  
+<script type="text/javascript">
+
+    $(document).ready(function(e){
+       
+           $('#largeData').append("<div class='bod' ><br><img src='@{'/public/images/icone.png'}' width='50' height='60' style='border:2'   /> <h3> Bem vindo a nossa rede social, nosso projeto foca na colaboração mútua para a criação e produção de livros, roteiros, storyboards, comics dentre outros, com mais qualidade! </h3>  <center> <img src='@{'/public/images/rede.png'}' width='100%' height='580' style='border:2'  /> </center> <br><h4>Vocês podem começar a produzir conteúdo na página projetos, pode buscar seus amigos por nome na caixa a direita desse post - Busca - ou podem verificar os posts de seus amigos rolando seu scroll para baixo</h4> </div>"+ "pagina:");
+       
+    });
+ var createAction = #{jsAction @listProjetos(':pro_titulo') /}
+    $(window).paged_scroll({
+        handleScroll:function (page,container,doneCallback) {
+          if (page<${tamanho}){
+     $.get(createAction({pro_titulo: page}), function(data) {
+ $.each(data, function(index, item) {
+            $('#largeData').append("<div class='bod' ><br><img src='"+item.pos_url+"'  width='50' height='60' style='border:2'  />" + item.pos_nome + "<center>"+item.pos_texto+"</center> <br></div>" +		
+            		"pagina:" +  page);
+            		  });
+            });
+             } else {
+            $('#largeData').append("<div class='bod' ><h1>não possui mais posts para carregar</div></h1>");
+           } 		
+           
+            //doneCallback();
+                        return true;
+        },
+        // Uncomment to enable infinite scroll
+        pagesToScroll : 4,
+        triggerFromBottom:'50',
+        loader:'<div class="loader"></div>',
+        pagesToScroll: 120,
+        debug  : true,
+        targetElement : $('#largeData')
+    });
+
+</script>
+
+       #{include 'busca.html'/}
+
+     </div>
+ 
+   </div>
+
+</body>

@@ -1,0 +1,63 @@
+<link href="@{'/public/stylesheets/rollover.css'}" rel="stylesheet"  />
+<script type="text/javascript" src="@{'/public/javascripts/rollovercustom.js'}"></script>
+ <div id="left" style="float: left; width: 18%; height: 100%;">
+
+          <div >
+            
+
+</div>
+<div class="perfil" id="panel-body" >
+ <center><b  class="panel-title" style=" color:#979590;">${user.usu_nome_completo}</b></center>
+<br>
+
+<a class="image"  href="#">
+<a  href="@{Timeline.editarPerfil(user)}"> 
+<span class="roll" ></span>
+<img src="@{userPhoto(user.usu_codigo)}" width="80%" height="18%" style="border:2"  /> </a> <br>
+</a>
+  
+             <br>
+             #{if qtdAmigos>0}
+             <a href="" style="text-decoration:none;color:#279590;"> Amigos(${qtdAmigos})</a>
+            #{/if}
+             #{list items:amigosSoli, as:'product'}
+             <br>
+            <a  href="@{Timeline.aceitar(product)}" class="${request.action =~ /perfil/ ? 'selected' : ''}"> ${product.usu_nome_completo}</a>
+             #{/list}
+            #{list items:contacts, as:'product'}
+            <br>
+	<a  href="@{Timeline.perfil(product)}" class="${request.action =~ /perfil/ ? 'selected' : ''}"><img width='50' height='50' name=${product.usu_nome}'+1+' src='@{userPhoto(product.usu_codigo)}'/> ${product.usu_nome}</a><br/>
+   				 
+			#{/list}
+			#{if projetos?.pro_codigo}
+			<br>
+			 <a href="" style="text-decoration:none;color:#279590;"> Projetos(${qtdProjetos})</a>
+			
+		 #{list items:projetos, as:'product'}
+		  
+		 				  <div id='${product.pro_codigo}'><a href='@{Projetos.projeto(product)}'  > ${product.pro_titulo} </a></div>
+		 				 
+		 				 <script>
+		 				  $("#${product.pro_codigo}").contextMenu({ menu: 'myMenu', leftButton: true });
+		 				 </script>
+		 				
+			#{/list}
+			#{/if}
+          
+</div>
+         </div>
+         
+         
+ <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-3774628-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>

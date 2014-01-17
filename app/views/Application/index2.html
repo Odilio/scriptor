@@ -1,0 +1,185 @@
+#{extends 'template.html'/}
+  <link href="@{'/public/stylesheets/stylish-portfolio.css'}" rel="stylesheet"> 
+<link href="@{'/public/stylesheets/bootstrap-lightbox.min.css'}" rel="stylesheet">
+  
+  <body data-spy="scroll" data-target=".navbar">
+  <div class="navbar navbar-inverse navbar-fixed-top" >
+  <div class="container" >
+ <div class="collapse navbar-collapse" >
+ 
+        <ul class="nav navbar-nav navbar-right">
+      
+		            
+		              <li class="active">
+		              #{form @login()}
+		  <p class="login">
+		  Login: <input type="text" name="username" />Senha: <input type="password" name="password" />     <input class="btn btn-primary btn-lg" type="submit" value="Logar" />
+		  </p>
+
+#{/form}
+</li>
+ <li class="active"><a   class="btn btn-primary btn-lg" href="@{Application.registrar()}">Registrar</a></li>
+        </ul>
+</div></div></div>
+    <!-- Full Page Image Header Area -->
+    <div id="top" class="header">
+      <div class="vert-text">
+        <h1>Conheca Scriptor</h1>
+        <h3><em>E</em> Crie grandes, <em>projetos</em> em parceria com seus amigos</h3>
+        <a href="#about" class="btn btn-default btn-lg">Descubra mais</a>
+        
+      </div>
+    </div>
+    <!-- /Full Page Image Header Area -->
+
+    <!-- Intro -->
+    <div id="about" class="intro">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-center">
+            <h2>Uma rede social para escritores e leitores que desejam interagir e trocar ideias</h2>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Intro -->
+
+  
+
+    
+
+    <!-- Portfolio -->
+    <div id="portfolio" class="portfolio">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4 text-center">
+            <h2>Nossa Rede</h2>
+            <hr>
+          </div>
+        </div>
+        
+        
+    
+	
+        <div class="row">
+          <div class="col-md-4 col-md-offset-2 text-center">
+            <div class="portfolio-item">
+             <img class="img-portfolio img-responsive" src="@{'/public/images/rede4.png'}">
+              <h4>Veja e interaja com seus amigos através de sua timeline</h4>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="portfolio-item">
+              <img class="img-portfolio img-responsive" src="@{'/public/images/rede3.png'}">
+              <h4>Comente e recomende seus livros favoritos</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-md-offset-2 text-center">
+            <div class="portfolio-item">
+             <img class="img-portfolio img-responsive" src="@{'/public/images/rede2.png'}">
+              <h4>Debata em chats exclusivos por livro</h4>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <div class="portfolio-item">
+              <img class="img-portfolio img-responsive" src="@{'/public/images/rede.png'}">
+              <h4>Gerencie seus projetos de maneira eficiente</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Portfolio -->
+
+    <!-- Call to Action -->
+    <div class="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-center">
+            <h3>Baixe nosso aplicativo para leitura de livros para Android e IOS ou o nosso aplicativo de criação para PC </h3>
+            <a href="#" class="btn btn-lg btn-default">PC!</a>
+            <a href="#" class="btn btn-lg btn-default">Android!</a>
+            <a href="#" class="btn btn-lg btn-primary">IOS!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Call to Action -->
+
+
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 text-center">
+            <ul class="list-inline">
+              <li><i class="fa fa-facebook fa-3x"></i></li>
+              <li><i class="fa fa-twitter fa-3x"></i></li>
+              <li><i class="fa fa-dribbble fa-3x"></i></li>
+            </ul>
+            <div class="top-scroll">
+              <a href="#top"><i class="fa fa-circle-arrow-up scroll fa-4x"></i></a>
+            </div>
+            <hr>
+            <p>Copyright &copy; Scriptor 2013</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- /Footer -->
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+
+    <!-- Custom JavaScript for the Side Menu and Smooth Scrolling - Put in a custom JavaScript file to clean this up -->
+    <script>
+        $("#menu-close").click(function(e) {
+            e.preventDefault();
+            $("#sidebar-wrapper").toggleClass("active");
+        });
+    </script>
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#sidebar-wrapper").toggleClass("active");
+        });
+    </script>
+    <script>
+      $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+          if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+            || location.hostname == this.hostname) {
+
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+            if (target.length) {
+              $('html,body').animate({
+                scrollTop: target.offset().top
+              }, 1000);
+              return false;
+            }
+          }
+        });
+      });
+    </script>
+
+<script>
+	$(document).ready(function()
+	{
+		prettyPrint();
+		$("img").img_lightbox_tooltip();
+	});
+	</script>
+
+	<script src="@{'/public/javascripts/bootstrap-img-lightbox-tooltip.js'}"></script>
+<script src="@{'/public/javascripts/bootstrap-lightbox.min.js'}"></script>
+<script src="@{'/public/javascripts/bootstrap-tooltip.js'}"></script>
+<script src="@{'/public/javascripts/scale.fix.js'}"></script>
+<script src="@{'/public/javascripts/prettify.js'}"></script>
+  </body>
+

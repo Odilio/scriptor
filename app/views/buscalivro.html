@@ -1,0 +1,39 @@
+
+  <span id="right" style="float: right; width: 15%; height: 100%;">
+<div class="panel panel-default">
+  <div class="panel-body">
+<form action='@{Livros.index()}' method='GET'><br><fieldset><p><label for='busca'>Titulo</label><input class="form-control" type='text'  name="titulo" id="busca"  /></fieldset> 
+ <fieldset><p><label for='autor'>Autor</label><input class="form-control" type='text'  name="autor" id="autor"  /></fieldset>
+  <h5>Genero do projeto</h5>
+    	<select class="form-control" name="pro_genero">
+    	  <option>Todos</option>
+          <option>Romance</option>
+          <option>Policial</option>
+          <option>Horror</option>
+           <option>Poesia</option>
+          <option>Ficcao</option>
+          <option>Infantil</option>
+          <option>Novela</option>
+      </select>
+      <h5>Tipo do projeto</h5>
+    	<select class="form-control" name="pro_tipo">
+          <option>Livro</option>
+          <option>Roteiro</option>
+          <option>Quadrinho</option>
+          <option value="solo">Aventura Solo</option>
+      </select>
+  <input type="submit" value="Buscar" class="btn btn-primary"></input>
+  
+</form>
+			
+		
+		</div>
+ 
+</div> 
+         </span>
+           <script type="text/javascript" charset="utf-8">
+		$(function(){ $("label").inFieldLabels(); });
+		
+			</script>
+			
+	

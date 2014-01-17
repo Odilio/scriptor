@@ -1,0 +1,6 @@
+# Application dependencies
+
+require:
+    - play -> hazelcast 0.3
+	- play -> paginate 0.14
+	- play -> jelastic 0.2

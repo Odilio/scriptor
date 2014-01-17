@@ -1,0 +1,102 @@
+
+#{extends 'template.html'/}
+<script src="@{'/public/javascripts/jquery.wookmark.min.js'}"></script>
+<script src="@{'/public/javascripts/jquery.imagesloaded.js'}"></script>	 
+<script src="@{'/public/javascripts/script.js'}"></script>
+<body style=" margin: 0px;padding: 0px; font-style: courier" >
+
+
+  
+
+#{include 'main.html'/}
+
+<br>
+         	
+         <div id="container" style="float: left;width: 83%;">
+        
+ #{if livros?.pro_codigo}
+ <center>
+ <ol id="filters">
+      <li data-filter="Policial">Policial</li>
+      <li data-filter="Horror">Horror</li>
+      <li data-filter="Ficcao">Ficção</li>
+      <li data-filter="Romance">Romance</li>
+       <li data-filter="Novela">Novela</li>
+      <li data-filter="Infantil">Infantil</li>
+      <li data-filter="Poesia">Poesia</li>
+    </ol>
+     </center>
+            <br>
+  <div id="main" role="main">
+
+      <ul id="tiles">
+ #{list items:livros, as:'livros'}
+  
+        <!-- These are our grid blocks -->
+        <li data-filter-class='["${livros.pro_genero}", "art"]'><center> <a href="@{Livros.perfil(livros)}"><img width='280' height='300' src="@{Projetos.projetoPhoto(livros.pro_codigo)}"  name=${livros.pro_titulo}  BORDER=1 /></a>  <p><b style=" color:#979590;"><img id="ctl00_XXX" src="@{userPhoto(livros.pro_cod_usuario)}" width='30' height='35' class="img-circle" style="border: 0; float: left; margin-right: 15px" /><h4>${livros.pro_titulo}</h4></b> Recomendações<span class="badge">${livros.pro_recomenda}</span></p></li>
+ 
+  
+  #{/list}
+   </ul>
+
+    </div>
+             #{/if}
+             <br>
+
+ 
+
+         </span>
+
+      
+     </div>
+
+ #{include 'buscalivro.html'/}
+
+ <script type="text/javascript">
+    (function ($){
+      $('#tiles').imagesLoaded(function() {
+        // Prepare layout options.
+        var options = {
+          autoResize: true, // This will auto-update the layout when the browser window is resized.
+          container: $('#main'), // Optional, used for some extra CSS styling
+          offset: 4, // Optional, the distance between grid items
+          itemWidth: 290, // Optional, the width of a grid item
+          fillEmptySpace: true // Optional, fill the bottom of each column with widths of flexible height
+        };
+
+        // Get a reference to your grid items.
+        var handler = $('#tiles li'),
+            filters = $('#filters li');
+
+        // Call the layout function.
+        handler.wookmark(options);
+
+        /**
+         * When a filter is clicked, toggle it's active state and refresh.
+         */
+        var onClickFilter = function(event) {
+          var item = $(event.currentTarget),
+              activeFilters = [];
+
+          if (!item.hasClass('active')) {
+            filters.removeClass('active');
+          }
+          item.toggleClass('active');
+
+          // Filter by the currently selected filter
+          if (item.hasClass('active')) {
+            activeFilters.push(item.data('filter'));
+          }
+
+          handler.wookmarkInstance.filter(activeFilters);
+        }
+
+        // Capture filter click events.
+        filters.click(onClickFilter);
+      });
+    })(jQuery);
+  </script>
+  
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+#{extends 'template.html'/}
+
+
+<body style="margin: 0px;padding: 0px; font-style: courier" >
+
+  
+
+	#{include 'main.html'/}
+	<br>
+	<div  style=" width: 100%;height: 64%">
+
+	 #{include 'panelperfil.html'/}
+
+		<div class="bod" id="largeData" style="float: left;width: 66%;">
+  
+  <h3>Projetos</h3>
+     
+     <table class="table table-hover">
+     <thead>
+     <tr >
+     <th>Projetos</th>
+     <th>Capitulos</th>
+     <th>Personagens</th>
+     <th>Notas</th>
+     <th>Locais</th>
+     <th></th>
+     </tr>
+
+</thead>
+<tbody>
+     #{list items:projetos, as:'product'}
+     <tr>
+     <td>
+  		<a href="@{Projetos.projeto(product)}" >${product.pro_titulo} <img id="ctl00_XXX" src="@{projetoPhoto(product.pro_codigo)}" width='30' height='30' style="border: 0; float: left; margin-right: 15px" /></a>
+  	 </td>
+  	 <td>
+  	 	<span class="badge">${product.pro_capitulos}</span>
+  	 </td>
+  	 <td>
+  	 	<span class="badge">${product.pro_personagens}</span>
+  	 </td>
+  	 <td>
+  	 	<span class="badge">${product.pro_notas}</span>
+  	 </td>
+  	 <td>
+  	 	<span class="badge">${product.pro_locais}</span>
+  	 </td>
+  	 <td>
+  	 	<a href="@{Projetos.configProjeto(product)}" ><img id="ctl00_XXX" src="@{'/public/images/config.png'}" width='20' height='30' style="border: 0; float: left; margin-right: 15px" /></a>
+  	 </td>
+  	 </tr>
+  	 #{/list}
+  	 </tbody>
+  		</table>
+	
+	
+	 #{if qtdProjetos>0}
+	 <center>
+  <ul class="pagination">
+   <li><a href="@{Projetos.index(qtdAmigos)}">1</a></li>
+   <li><a href="@{Projetos.index(qtdAmigos,2)}">2</a></li>
+  <li><a href="@{Projetos.index(qtdAmigos,3)}">3</a></li>
+  <li><a href="@{Projetos.index(qtdAmigos,4)}">4</a></li>
+</ul>
+</center>
+#{/if}
+ 		
+
+  
+   	 #{form @Projetos.addProjeto(),enctype:'multipart/form-data' }
+   	 
+   	 <div class="form-group">
+   	 <h4>Titulo do Projeto que deseja iniciar</h4>
+    	<input class="form-control" type="text" id="inp" name="projeto.pro_titulo"/>
+    	<h4>Genero do projeto</h4>
+    	<select class="form-control" name="projeto.pro_genero">
+          <option>Romance</option>
+          <option>Policial</option>
+          <option>Horror</option>
+           <option>Ficcao</option>
+      </select>
+      <h4>Tipo do projeto</h4>
+    	<select class="form-control" name="projeto.pro_tipo">
+          <option>Livro</option>
+          <option>Roteiro</option>
+          <option>Quadrinho</option>
+           <option value="solo">Aventura Solo</option>
+      </select>
+      <h4>Adicione uma capa para o seu projeto</h4>
+        <input class="btn btn-default" type="file" name="projeto.pro_imagem">
+        <input type="hidden"  name="projeto.pro_nome_usuario" value="${user.usu_nome}"/>
+      
+         <input type="submit" class="btn btn-primary"></input>
+         </div>
+	#{/form}   
+	
+
+ 
+
+
+
+</div>
+
+ #{include 'busca.html'/}
+       
+
+     
+<script type="text/javascript">
+  $(function () {
+
+    var $contextMenu = $("#contextMenu");
+    var $rowClicked;
+
+    $("body").on("contextmenu", "table tr", function (e) {
+        $rowClicked = $(this)
+        $contextMenu.css({
+            display: "block",
+            left: e.pageX,
+            top: e.pageY
+        });
+        return false;
+    });
+
+    $contextMenu.on("click", "a", function () {
+        var message = "You clicked on the row '" + 
+            $rowClicked.children("*")[1].innerHTML + "'\n"
+        message += "And selected the menu item '" + $(this).text() + "'"
+       
+        $contextMenu.hide();
+    });
+
+    $(document).click(function () {
+        $contextMenu.hide();
+    });
+
+});
+</script>
+
+</div>
+<div id="contextMenu" class="dropdown">
+<ul id="myMenu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
+            <li class="edit"><a href="@{Projetos.capitulo(items:projetos)}">Novo Capitulo</a></li>
+            <li class="copy"><a href='http://www.dzone.com/links/r/an_easy_timesaver_to_create_java_classes_from_jso.html'>Nova Nota</a></li>
+            <li class="copy"><a href="#copiar">Novo Personagem</a></li>
+            <li class="paste"><a href="#colar">Novo Cenario</a></li>
+            <li class="quit separator"><a href="#deletar">Adcionar Capa</a></li>
+            <li class="paste"><a href="#sair">Adcionar Contra-Capa</a></li>
+        </ul>
+        </div>
+</body>
+

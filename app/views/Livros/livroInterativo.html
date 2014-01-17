@@ -1,0 +1,217 @@
+#{extends 'template.html'/}
+	<meta charset="utf-8">
+	
+<link href="@{'/public/stylesheets/jumpto.css'}" rel="stylesheet">
+	
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+ 
+  
+  <style>
+   
+    body {
+      background: #f3f3f3;
+      padding: 0;
+      text-align: center;
+      font-family: 'open sans';
+      position: relative;
+      margin: 0;
+      height: 100%;
+    }
+    
+ 
+    
+    a {
+      text-decoration: none;
+    }
+    
+    
+    h1, h2 {
+      width: 100%;
+      float: left;
+    }
+    h1 {
+      margin-top: 100px;
+      color: #6D461D;
+      margin-bottom: 5px;
+      font-size: 70px;
+      letter-spacing: -4px;
+    }
+    h2 {
+      color: #444;
+      font-weight: 100;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    
+    .pointer {
+      color: #9b59b6;
+      font-family: 'Pacifico', cursive;
+      font-size: 30px;
+      margin-top: 15px;
+    }
+
+ 
+    
+    .reload.bell {
+      font-size: 12px;
+      padding: 20px;
+      width: 45px;
+      text-align: center;
+      height: 47px;
+      border-radius: 50px;
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+    }
+    
+    .reload.bell #notification {
+      font-size: 25px;
+      line-height: 140%;
+    }
+    
+    .reload, .btn{
+      display: inline-block;
+      border: 4px solid #A2261E;
+      border-radius: 5px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      background: #CC3126;
+      display: inline-block;
+      line-height: 100%;
+      padding: 0.7em;
+      text-decoration: none;
+      color: #fff;
+      width: 100px;
+      line-height: 140%;
+      font-size: 17px;
+      font-family: open sans;
+      font-weight: bold;
+    }
+    .reload:hover{
+      background: #A2261E;
+    }
+    .btn {
+      width: 200px;
+      color: #fff;
+      border: none;
+      margin-left: 10px;
+      background: #000;
+    }
+    .clear {
+      width: auto;
+    }
+    .btn:hover, .btn:hover {
+      background: rgba(0,0,0,0.8);
+    }
+    .btns {
+      width: 410px;
+      margin: 50px auto;
+    }
+    .credit {
+      opacity: 0.5;
+      text-align: center;
+      color: #808080;
+      float: left;
+      width: 100%;
+    }
+    .credit a {
+      color: #808080;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .back:hover {
+      background: rgba(0, 0, 0, 0.85);
+    }
+   
+    .bod, .other {
+      max-width: 70%;
+      margin: 4% auto;
+    }
+   
+    .header {
+      color: white;
+      overflow: hidden;
+    }
+    #panel {
+    width: 10%;
+    position: fixed;
+    top: 80px;
+    left: 1%;
+    background: white;
+    border-bottom: 3px solid #666;
+    padding: 10px;
+}
+    .header h1, .header h2{
+        text-shadow: 0 2px 0 rgba(255, 255, 255, 0.1);
+        color: #000;
+    }
+    .header h2{ 
+      font-weight: bold;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+    .other h1 {
+      font-size: 46px;
+      margin-bottom: 20px;
+    }
+	</style>
+	<script>
+	  $(document).ready( function() {
+	    $(".bod").jumpto({
+	      firstLevel: "> h2",
+	      secondLevel: "> h3"
+	    });
+	  });
+		
+	</script>
+</head>
+<body>
+#{include 'main.html'/}
+<br>
+<audio controls>
+  <source src="${capAtual.cap_musica}" type="audio/mpeg">
+ 
+  Seu navagador não suporta esse formato de aúdio, por favor atualize para uma nova versão ou preferencialmente use o google chrome!
+</audio>
+
+   <input type="hidden"  name="pro_codigo" value="${pro_codigo}"/>
+	    <div class="header">
+        <h1>${projeto.pro_titulo}</h1>
+        <p class="credit">Escrito por <a href=""> ${projeto.pro_nome_usuario}</a></p>
+    
+  	  </div>
+  	    #{if per != null}
+  	  <div id="panel">
+<center><img src="@{personPhoto(per.per_codigo)}" width="70%" height="18%" style="border:2"  /> </center>
+<br>
+</div>
+ #{/if}
+      <div class="bod">
+        
+        
+          <h2><p>${capAtual.cap_titulo}</p></h2>
+        #{verbatim}${capAtual.cap_texto} #{/verbatim}
+         
+       <ul class="pager">
+       <form id="form1" action='@{Livros.livroInterativo()}' >
+         <li class="previous"><a href="javascript:;" onclick="document.getElementById('form1').submit();">&larr; ${capAtual.cap_texto_OP1}</a></li>
+         <input  type="hidden"  name="id" value="${capAtual.cap_indice_OP1}"/>
+ 
+ </form>  
+  <form id="form2" action='@{Livros.livroInterativo()}' >
+    <li class="next"><a href="javascript:;" onclick="document.getElementById('form2').submit();">${capAtual.cap_texto_OP2} &rarr;</a></li>
+    <input type="hidden"  name="id" value="${capAtual.cap_indice_OP2}"/>
+ 
+</form> 
+</ul>
+      </div>
+      
+  
+     <div class="panel-footer"> Recomendações<span class="badge">${projeto.pro_recomenda}</span></div>
+  
+</body>
+
+
+</html>

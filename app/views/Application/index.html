@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>#{get 'title' /}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/demo.css'}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/stylemenu.css'}" />
+        #{get 'moreStyles' /}
+        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+        <script src="@{'/public/javascripts/jquery-1.6.4.js'}" type="text/javascript" charset="utf-8"></script>
+        #{get 'moreScripts' /}
+    </head>
+    <body>  
+#{set title:'SolexBackend' /}
+
+#{ifErrors}
+   <h1>Oops…</h1>
+    #{errors}
+       <li>${error}</li>
+   #{/errors}
+   
+#{/ifErrors}
+ 
+ 
+ 
+<div id="zencontact">
+#{form @login()}
+
+<br>
+<center>
+  <p class="login">
+       <label for="login">Username:</label><br> <input type="text" name="username" value="${flash.name}" />
+      <span class="error">#{error 'name' /}</span>
+   </p>
+ <p class="pass">
+       <label for="pass">Password:</label> <input type="password" name="password" value="${flash.name}" />
+      <span class="error">#{error 'name' /}</span>
+   </p>
+   </center>
+   <p align="center" class="buton">
+      <input type="submit" value="Entrar" /> 
+  </p>
+  
+  
+#{/form}
+#{form @registrar()}
+<p align="center" class="buton">
+      <input type="submit" value="Registrar" /> 
+  </p>
+  #{/form}
+  </div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+#{extends 'template.html' /}
+#{set title:'Chat room' /}
+<script src="@{'/public/javascripts/templating.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/jquery.scrollTo-min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+       <style>
+      
+       #thread {
+        width: 75%;
+    position: fixed;
+    top: 80px;
+    left: 14px;
+    right: 14px;
+    bottom: 100px;
+    background: white;
+    border-bottom: 3px solid #666;
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+ #panel {
+    width: 22%;
+    position: fixed;
+    top: 80px;
+    left: 77%;
+    right: 14px;
+    bottom: 100px;
+    background: white;
+    border-bottom: 3px solid #666;
+    padding: 10px;
+    overflow-y: scroll;
+}
+img 
+{
+padding: 5px;
+    position: absolute;
+    top: 0;
+    left: 7%;
+    bottom: 0;
+    align: right;
+width:36px;
+height:41px;
+}
+.message {
+    border-bottom: 1px solid #efefef;
+    position: relative;
+}
+
+.message h2 {
+    background: #efefef;
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 7%;
+    text-align: right;
+  
+}
+
+.message p {
+    font-size: 12px;
+    padding: 12px;
+    margin: 0 0 0 10%;
+}
+
+.message.you * {
+    background: #DDDDDD;
+}
+
+
+.message.notice * {
+    background: #F8F8F8;
+}
+
+.message.important * {
+    background: #c00;
+    color: #fff;
+}
+
+.message.notice h2 {
+    visibility: hidden;
+}
+
+.message.notice p {
+	font-style: italic;
+    margin: 0;
+    font-size: 11px;
+    padding-left: 115px;
+}
+
+#newMessage {
+    position: fixed;
+    left: 10px;
+    right: 14px;
+    bottom: 30px;
+    height: 60px;
+}
+
+#newMessage #message {
+    width: 70%;
+    padding: 5px;
+}
+       
+       </style>
+#{include 'main.html'/}
+<br><br>
+
+<div id="thread">
+    <script type="text/html" id="message_tmpl">
+        <% if(event.type == 'message') { %>
+        
+            <div class="message <%= event.user == '${usu}' ? 'you' : '' %>">
+            	 <img  src="@{Application.userPhoto(user.usu_codigo)}" ></img>
+                <h2><%= event.user %></h2>
+                <p>
+                    <%= event.text %>
+                </p>
+            </div>
+        <% } %>
+        <% if(event.type == 'join') {
+              
+         %>
+            <div class="message notice">
+                <h2></h2>
+                <p>
+                    <%= event.user %> Entrou na conversa
+                </p>
+            </div>
+        <% } %>
+        <% if(event.type == 'leave') { %>
+            <div class="message notice">
+                <h2></h2>
+                <p>
+                    <%= event.user %> Saiu da conversa
+                </p>
+            </div>
+        <% } %>
+        <% if(event.type == 'quit') { %>
+            <div class="message important">
+                <h2></h2>
+                <p>
+                    You are now disconnected!
+                </p>
+            </div>
+        <% } %>
+    </script>
+</div>
+<div id="panel">
+<center>Online<img  src="@{'/public/images/bola_verde2.gif'}" width='25' height='20' /></center>
+<br>
+</div>
+<div id="newMessage">
+   <input placeholder="Digite sua mensagem aqui" class="form-control" type="text" id="message" autocomplete="on">
+    <input class="btn btn-primary" type="submit" value="Enviar" id="send">
+</div>
+
+<script type="text/javascript">
+
+    // Create a socket
+    var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket;
+    var socket = new WS('@@{Livros.ChatRoomSocket.join(usu,pro_codigo)}')
+    
+    // Display a message
+    var display = function(event) {
+        $('#thread').append(tmpl('message_tmpl', {event: event}));
+        $('#thread').scrollTo('max')
+    }
+    
+    // Message received on the socket
+    socket.onmessage = function(event) {
+        var parts = /^([^:]+):([^:]+)(:(.*))?$/.exec(event.data)
+        display({
+            type: parts[1],
+            user: parts[2],
+            text: parts[4]
+        })
+    }
+    
+    socket.onopen = function(evt) { 
+        $('#panel').append('${usu}<br>');
+    }
+    
+    
+    $('#send').click(function(e) {
+        var message = $('#message').val()
+        $('#message').val('')
+        socket.send(message)
+    });
+    
+    $('#message').keypress(function(e) {
+        if(e.charCode == 13 || e.keyCode == 13) {
+            $('#send').click()
+            e.preventDefault()
+        }
+    })
+    $(function(){ $("label").inFieldLabels(); });
+</script>
+
+ 

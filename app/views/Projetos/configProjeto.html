@@ -1,0 +1,38 @@
+#{extends 'templateprojeto.html'/}
+<div class="form-group">
+  #{form @Projetos.addProjeto(),enctype:'multipart/form-data' }
+ <h4>Titulo do projeto</h4>
+    	<fieldset><p><label for='inp'>Titulo do projeto Aqui</label><input class="form-control" type="text" id="inp" value="${projeto?.pro_titulo}" name="projeto.pro_titulo"/></fieldset>
+    	
+    	<input type="hidden"  id="inp" name="projeto.pro_codigo" value="${projeto.pro_codigo}"/>
+	
+	<br>
+	<h4>Genero do projeto</h4>
+    	<select class="form-control" name="projeto.pro_genero" value="projeto?.pro_genero">
+          <option>Romance</option>
+          <option>Policial</option>
+          <option>Horror</option>
+           <option>Ficcao</option>
+      </select>
+	<br>
+	<h4>Tipo do projeto</h4>
+    	 #{select 'projeto.pro_tipo',  items: tipos,valueProperty:'nome',  labelProperty:'nome',value:projeto.pro_tipo, class:'form-control' /}
+      	<br>
+      
+     
+      
+      	<br>
+      Imagem da capa do projeto: <input class="btn btn-default" type="file" name="projeto.pro_imagem">
+		<br>
+	
+		 <input ${projeto.pro_visivel ? 'checked':''} type="checkbox" name="projeto.pro_visivel" data-toggle="tooltip" title="Desmarque para que seu projeto não possa ser visto por outras pessoas nem gere um post na timeline de amigos"> Visivel<br>
+		
+		 	<br>
+		 <input type="submit" class="btn btn-primary"></input>
+		 <input type="submit" class="btn btn-primary" value="Excluir Projeto"></input>
+		#{/form} 
+	</div>
+	<script>
+$(function () { $("[data-toggle='tooltip']").tooltip(); });
+	
+	</script>

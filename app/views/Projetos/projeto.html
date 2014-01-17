@@ -1,0 +1,258 @@
+#{extends 'template.html'/}
+
+
+<body style="margin: 0px;padding: 0px; font-style: courier" >
+
+ 
+
+
+	#{include 'main.html'/}
+	<div  style="float: left; width: 100%;height: 74%">
+
+	 #{include 'panelperfil.html'/}
+
+		<div class="bod" id="largeData" style="float: left;width: 66%;">
+  
+  				<input type="hidden" value"projeto?.pro_codigo" name="projeto.pro_codigo">
+ 		<h3>${projeto.pro_titulo}<a href="" > <img  src="@{projetoPhoto(projeto?.pro_codigo)}" width='25' height='30' style="border: 0; float: left; margin-right: 15px" /></a></h3>
+
+  
+     <ul class="nav nav-tabs" id="myTab"> 
+     <li class="active">   <a href="#home">Capitulos</a></li> 
+     <li><a href="#profile">Personagens</a></li> 
+     <li><a href="#messages">Notas</a></li> 
+     <li><a href="#settings">Locais</a></li></ul>
+     <div class="tab-content" id="paneltab">
+     <div class="tab-pane active" id="home">
+     <div>
+     <table class="table table-hover">
+     
+     <thead>
+     <tr >
+     
+     <th>Capitulos</th>
+     <th>Personagens</th>
+     <th>Notas</th>
+      <th>Ordem</th>
+     <th></th>
+     </tr>
+
+</thead>
+     <tbody>
+     
+     #{list items:capitulos, as:'product'}
+  		<tr >
+  		<td>
+  		<form id="${product.cap_titulo}" action="@{Projetos.capitulo(product)}" method="post">
+  		<a href="javascript:;" onclick="document.getElementById('${product.cap_titulo}').submit();" >${product.cap_titulo}</a>
+  		</form>
+  		</td>
+  		<td>
+  	 	<span class="badge">${product.cap_personagens}</span>
+  	 </td>
+  	 <td>
+  	 	<span class="badge">${product.cap_notas}</span>
+  	 </td>
+  	 <td>
+  	 	<span class="badge" data-toggle="tooltip" title="Indica a ordem e o indice do capitulo para ser refenciado por outros capitulos!"">${product.cap_indice}</span>
+  	 </td>
+  	 <td>
+  	 	<a href="@{Projetos.projeto(product)}" ><img id="ctl00_XXX" src="@{'/public/images/config.png'}" width='20' height='30' style="border: 0; float: left; margin-right: 15px" /></a>
+  	 </td>
+  	 </tr>
+  	 #{/list}
+  		</tbody>
+  	</table>	
+	</div>
+	#{if projeto.pro_capitulos>6}
+	 <center> 	
+  <ul class="pagination">
+   <li><a href="@{Projetos.index(qtdAmigos)}">1</a></li>
+   <li><a href="@{Projetos.index(qtdAmigos,2)}">2</a></li>
+   <li><a href="@{Projetos.index(qtdAmigos,3)}">3</a></li>
+   <li><a href="@{Projetos.index(qtdAmigos,4)}">4</a></li>
+</ul>
+</center>
+#{/if}
+	<a href="@{Projetos.capitulo(projeto)}">Novo Capitulo</a>
+     </div>
+     <div class="tab-pane" id="profile"> 
+     <div>
+       <table class="table table-hover">
+     <thead>
+     <tr >
+     
+    
+     <th>Personagens</th>
+     
+     <th>Referencia</th>
+     <th></th>
+     </tr>
+
+</thead>
+     <tbody>
+     #{list items:personagens, as:'product'}
+  		<tr >
+  		<td>
+  		<a href="@{Projetos.personagem(product)}" >${product.per_nome} <img id="ctl00_XXX" src="@{projetoPhoto(product.pro_codigo)}" width='30' height='30' style="border: 0; float: left; margin-right: 15px" /></a>
+  		</td>
+  		<td>
+  		<a href="@{Projetos.personagem(product)}" >${product.per_referencia}</a>
+  		</td>
+  		<td>
+  	 	<a href="@{Projetos.projeto(product)}" ><img id="ctl00_XXX" src="@{'/public/images/config.png'}" width='20' height='30' style="border: 0; float: left; margin-right: 15px" /></a>
+  	 </td>
+  	 </tr>
+  	 #{/list}
+  		</tbody>
+  	</table>
+	</div>
+	#{if projeto.pro_personagens>6}
+	 <center> 	
+  <ul class="pagination">
+   <li><a href="@{Projetos.index(qtdAmigos)}">1</a></li>
+   <li><a href="@{Projetos.index(qtdAmigos,2)}">2</a></li>
+  <li><a href="@{Projetos.index(qtdAmigos,3)}">3</a></li>
+  <li><a href="@{Projetos.index(qtdAmigos,4)}">4</a></li>
+</ul>
+</center>
+#{/if}
+	<a href="@{Projetos.personagem(projeto)}">Novo Personagem</a>
+	</div>
+     <div class="tab-pane" id="messages">
+     <div>
+  <table class="table table-hover">
+     <thead>
+     <tr >
+     <th>Notas</th>
+     <th></th>
+     </tr>
+	</thead>
+     <tbody>
+     #{list items:notas, as:'product'}
+     <tr >
+  		<td>
+  		<a href="@{Projetos.nota(product)}" >${product.not_titulo}</a>
+  		</td>
+  		<td>
+  	 	<a href="@{Projetos.projeto(product)}" ><img id="ctl00_XXX" src="@{'/public/images/config.png'}" width='20' height='30' style="border: 0; float: left; margin-right: 15px" /></a>
+  	 </td>
+  	 </tr>
+  	 #{/list}
+  		</tbody>
+  	</table>
+	</div>
+	#{if projeto.pro_notas>6}
+	 <center> 	
+  <ul class="pagination">
+   <li><a href="@{Projetos.index(qtdAmigos)}">1</a></li>
+   <li><a href="@{Projetos.index(qtdAmigos,2)}">2</a></li>
+  <li><a href="@{Projetos.index(qtdAmigos,3)}">3</a></li>
+  <li><a href="@{Projetos.index(qtdAmigos,4)}">4</a></li>
+</ul>
+</center>
+#{/if}
+	<a href="@{Projetos.nota(projeto)}">Nova Nota</a>
+</div> 
+     <div class="tab-pane" id="settings">
+     <div>
+     <table class="table table-hover">
+     <thead>
+     <tr >
+     <th>Locais</th>
+     <th>Referencia</th>
+     <th></th>
+     </tr>
+	</thead>
+     <tbody>
+     #{list items:locais, as:'product'}
+     <tr >
+  		<td>
+  		<a href="@{Projetos.local(product)}" >${product.loc_nome}</a>
+  		</td>
+  		<td>
+  		<a href="@{Projetos.local(product)}" >${product.loc_referencia}</a>
+  		</td>
+  		<td>
+  	 	<a href="@{Projetos.projeto(product)}" ><img id="ctl00_XXX" src="@{'/public/images/config.png'}" width='20' height='30' style="border: 0; float: left; margin-right: 15px" /></a>
+  	 </td>
+  	 </tr>
+  	 #{/list}
+  		</tbody>
+  	</table>
+	</div>
+	#{if projeto.pro_locais>6}
+	 <center> 	
+  <ul class="pagination">
+   <li><a href="@{Projetos.index(qtdAmigos)}">1</a></li>
+   <li><a href="@{Projetos.index(qtdAmigos,2)}">2</a></li>
+  <li><a href="@{Projetos.index(qtdAmigos,3)}">3</a></li>
+  <li><a href="@{Projetos.index(qtdAmigos,4)}">4</a></li>
+</ul>
+</center>
+#{/if}
+	<a href="@{Projetos.local(projeto)}">Novo Local</a>
+     </div>
+      
+    <a href="@{Projetos.addCapa(projeto)}">Adcionar Capa</a>
+    
+     </div>
+	
+<script type="text/javascript">
+   $('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+   
+   
+ 
+   });
+ $(function () {
+
+    var $contextMenu = $("#contextMenu");
+    var $rowClicked;
+
+    $("body").on("contextmenu", "table tr", function (e) {
+        $rowClicked = $(this)
+        $contextMenu.css({
+            display: "block",
+            left: e.pageX,
+            top: e.pageY
+        });
+        return false;
+    });
+
+    $contextMenu.on("click", "a", function () {
+        var message = "You clicked on the row '" + 
+            $rowClicked.children("*")[1].innerHTML + "'\n"
+        message += "And selected the menu item '" + $(this).text() + "'"
+       
+        $contextMenu.hide();
+    });
+
+    $(document).click(function () {
+        $contextMenu.hide();
+    });
+
+});
+</script>
+
+</div>
+
+ #{include 'busca.html'/}
+       
+
+ 
+
+<div id="contextMenu" class="dropdown">
+<ul id="myMenu" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:static;margin-bottom:5px;">
+            <li class="edit"><a href="@{Projetos.capitulo(projeto)}">Novo Capitulo</a></li>
+            <li class="copy"><a href="@{Projetos.nota(projeto)}">Nova Nota</a></li>
+            <li class="copy"><a href="@{Projetos.personagem(projeto)}">Novo Personagem</a></li>
+            <li class="paste"><a href="@{Projetos.local(projeto)}">Novo Cenario</a></li>
+            <li class="quit separator"><a href="@{Projetos.addCapa(projeto)}">Adcionar Capa</a></li>
+            <li class="paste"><a href="#sair">Adcionar Contra-Capa</a></li>
+        </ul>
+        </div> 
+        
+</body>
+

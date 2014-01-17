@@ -1,0 +1,145 @@
+#{extends 'templateprojeto.html'/}
+
+ 
+ 	<form action="@{AventuraSolo.novoCapitulo()}" method="post" id="formpro">
+    	<fieldset  data-toggle="tooltip" title="Titulo do capitulo"><p><label for='inp'>Titulo do Capitulo Aqui</label><input class="form-control" type="text" id="inp" value="${capitulo?.cap_titulo}" name="capitulo.cap_titulo"/></fieldset>
+    	<input type="hidden"  id="inp" name="pro_codigo" value="${projeto.pro_codigo}"/>
+	<input type="hidden"  id="inp" name="capitulo.cap_codigo" value="${capitulo?.cap_codigo}"/>
+		<textarea cols="80" id="editor1" name="capitulo.cap_texto" rows="12">
+	${capitulo?.cap_texto}
+		</textarea>
+			<label>Indice do Capitulo Aqui</label><input name="capitulo.cap_indice" type="number" id="WS1" value="${capitulo?.cap_indice}">  
+		<fieldset  data-toggle="tooltip" title="Indica o titulo da primeira opção de escolha para esse capitulo"><p><label for='op1'>Entre com o texto da opcao 1</label><input class="form-control" type="text" id="op1" value="${capitulo?.cap_texto_OP1}" name="capitulo.cap_texto_OP1"/></fieldset>
+		#{select 'capitulo.cap_indice_OP1',  items:tipos, valueProperty:'id',  labelProperty:'nome',value:capitulo.cap_indice_OP1, class:'form-control' /}
+		
+		<fieldset data-toggle="tooltip" title="Indica o titulo da segunda opção de escolha para esse capitulo"><p><label for='op2'>Entre com o texto da opcao 2</label><input class="form-control" type="text" id="op2" value="${capitulo?.cap_texto_OP2}" name="capitulo.cap_texto_OP2"/></fieldset>
+		 #{select 'capitulo.cap_indice_OP2',  items:tipos, valueProperty:'id',  labelProperty:'nome',value:capitulo.cap_indice_OP2, class:'form-control' /}
+		<label>Selecione uma trilha sonora para esse capitulo</label>
+		 #{select 'capitulo.cap_musica',  items:musicas, valueProperty:'mus_titulo',  labelProperty:'mus_titulo',value:capitulo.cap_musica, class:'form-control' /}
+		 <input type="submit" class="btn btn-primary"></input>
+		</form> 
+	
+    	<ul class="nav nav-tabs" id="myTab"> 
+     <li ><a href="#profile">Personagens</a></li> 
+     <li class="active"><a href="#messages">Notas</a></li> 
+     <li><a href="#settings">Locais</a></li></ul>
+     <div class="tab-content" id="paneltab">
+     	
+     <div class="tab-pane" id="profile"> 
+      <div class="list-group" >
+     #{list items:pers_caps, as:'product'}
+  		<a href="@{AventuraSolo.personagem(product)}" class="list-group-item">${product.per_nome}</a>
+  	 #{/list}
+  		
+	</div>
+	 <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg">Novo Personagem</a>
+	
+	</div>
+     <div class="tab-pane" id="messages">
+ <div class="list-group" >
+     #{list items:notas, as:'product'}
+  		<a href="@{AventuraSolo.nota(product)}" class="list-group-item">${product.not_titulo}</a>
+  	 #{/list}
+  		
+	</div>
+	 <a data-toggle="modal" href="#modalnota" class="btn btn-primary btn-lg">Nova Nota</a>
+	
+</div> 
+     <div class="tab-pane" id="settings">
+     <div class="list-group" >
+     #{list items:local_capitulo, as:'product'}
+  		<a href="@{AventuraSolo.local(product)}" class="list-group-item">${product.loc_nome}</a>
+  	 #{/list}
+  		
+	</div>
+	 <a data-toggle="modal" href="#modallocal" class="btn btn-primary btn-lg">Novo Local</a>
+	
+     </div>
+      
+   
+    
+     </div>
+  		
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+       <form action="@{AventuraSolo.addPersonagemCapitulo()}" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Adcione um personagem</h4>
+        </div>
+        <div class="modal-body">
+       
+        <input type="hidden"  id="inp" name="personagem_capitulo.cap_codigo" value="${capitulo?.cap_codigo}"/>
+         <select class="form-control" name="personagem_capitulo.per_codigo">
+          #{list items:personagens, as:'product'}
+
+          <a href="@{AventuraSolo.personagem(product)}" class="list-group-item"><option value="${product.per_codigo}">${product.per_nome}</option></a>
+          
+            #{/list}
+      </select>
+     
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          <input type="submit" class="btn btn-primary" value="Adicionar"></input>
+        </div>
+         </form>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+	
+	
+	
+	
+ <div class="modal fade" id="modalnota" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Adcione uma nota</h4>
+        </div>
+        <div class="modal-body">
+         <select class="form-control" name="projeto.pro_genero">
+         #{list items:notas, as:'product'}
+          <a href="@{AventuraSolo.nota(product)}" class="list-group-item"><option>${product.not_titulo}</option></a>
+         #{/list}
+      </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary">Adicionar</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>	
+
+  
+  
+  
+  
+   <div class="modal fade" id="modallocal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <form action="@{AventuraSolo.addLocalCapitulo()}" >
+        <div class="modal-header">
+         <input type="hidden"  id="inp" name="local_capitulo.capitulo_cap_codigo" value="${capitulo?.cap_codigo}"/>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Adcione uma nota</h4>
+        </div>
+        <div class="modal-body">
+         <select class="form-control" name="local_capitulo.local_loc_codigo">
+         #{list items:locais, as:'product'}
+          <a href="@{AventuraSolo.local(product)}" class="list-group-item"><option value="${product.loc_codigo}">${product.loc_nome}</option></a>
+         #{/list}
+      </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          <input type="submit" class="btn btn-primary" value="Adicionar"></input>
+        </div>
+         </form>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>	
+ 

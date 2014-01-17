@@ -1,0 +1,76 @@
+
+#{extends 'template.html'/}
+ <body style=" margin: 0px;padding: 0px; font-style: courier" >
+
+
+  
+
+#{include 'main.html'/}
+<div class="panel panel-default">
+<div class="panel-body">
+
+   <a href="@{Livros.index()}" > <img  src="@{Projetos.projetoPhoto(projeto.pro_codigo)}" width='280' height='300' style="border: 0; float: left; margin-right: 15px" />
+   <h3>${projeto.pro_titulo}</h3>
+   
+   </a>
+   <br>
+         <img class="img-circle" src="@{Application.userPhoto(usu.usu_codigo)}" width='28' height='35' style="border: 0; float: left; margin-right: 15px" data-toggle="tooltip" title="Autor do livro" />
+         ${usu.usu_nome}
+         <br>
+            <br>
+             <form action='@{Livros.room()}' id="form" >
+             <input type="hidden"  name="pro_codigo" value="${projeto?.pro_codigo}"/>
+              <input type="hidden"  name="usu_nome_completo" value="${user?.usu_nome_completo}"/>
+         <a href="javascript:;" onclick="document.getElementById('form').submit();"  data-toggle="tooltip" title="Chat para os leitores desse livro">chat</a>
+         </form>
+             <br>
+              #{if adicionado != true}
+              <a href="@{Livros.addBiblioteca(projeto)}" >Adicionar a Biblioteca</a><br>
+               #{/if}
+               #{else}
+                <a href="@{Livros.excluirBiblioteca(projeto)}" >Adicionado (Desfazer)</a><br>
+               #{/else} 
+             #{if projeto.pro_tipo=='solo'}
+              <form action='@{Livros.livroInterativo()}' id="form2" >
+             <input type="hidden"  name="pro_codigo" value="${projeto?.pro_codigo}"/>
+            
+         <a href="javascript:;" onclick="document.getElementById('form2').submit();" >Ler Livro </a><br>
+           </form>
+             #{/if}
+             #{else}
+         <a href="@{Livros.livro(projeto)}" >Ler Livro </a><br>
+         #{/else}
+         #{if recomendado != true}
+          <a href="@{Livros.recomendar(projeto)}" > Recomendar </a><span class="badge">${projeto.pro_recomenda}</span>
+         #{/if}
+         #{else}
+              <a href="@{Livros.excluirRecomendar(projeto)}" > Recomendado (Desfazer) </a><span class="badge">${projeto.pro_recomenda}</span>
+         #{/else}   
+         </div>
+        
+    <div class="panel-footer">
+    <div id="newMessage">
+   #{form @Livros.postComment()}
+   <input placeholder="Digite seu comentario aqui" class="form-control" type="text" id="message" name="coment.com_texto">
+    <input class="btn btn-primary" type="submit" value="Postar" id="send">
+     <input type="hidden"  name="coment.com_pro_codigo" value="${projeto?.pro_codigo}"/>
+     <input type="hidden"  name="coment.com_usu_codigo" value="${user?.usu_codigo}"/>
+     <input type="hidden"  name="coment.com_usu_name" value="${user?.usu_nome}"/>
+    #{/form} 
+</div>
+   #{list items:comentarios, as:'product'}
+   <div class="panel panel-default">
+  <div class="panel-heading"> ${product.com_usu_name}</div>
+  <div class="panel-body">
+    ${product.com_texto}<br>
+  </div>
+</div>
+</div>
+    #{/list}
+    </div>
+</div>
+</body>
+<script>
+$(function () { $("[data-toggle='tooltip']").tooltip(); });
+</script>
+</html>

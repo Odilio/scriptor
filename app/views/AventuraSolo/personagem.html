@@ -1,0 +1,15 @@
+#{extends 'templateprojeto.html'/}
+ 
+ 	 #{form @Projetos.novoPersonagem(),enctype:'multipart/form-data' }
+    	<fieldset><p><label for='inp'>Nome do personagem aqui</label><input class="form-control" type="text" id="inp" value="${personagem?.per_nome}" name="personagem.per_nome"/></fieldset>
+    	<fieldset><p><label for='aaa'>Referencia para personagem ex: @kane</label><input class="form-control" type="text" id="aaa" value="${personagem?.per_referencia}" name="personagem.per_referencia"/></fieldset>
+    	<input type="hidden"  id="inp" name="pro_codigo" value="${projeto.pro_codigo}"/>
+    	<input type="hidden"  id="inp" name="personagem.per_codigo" value="${personagem?.per_codigo}"/>
+	Imagem do personagem: Não obrigatorio <input class="btn btn-default" type="file" name="personagem.per_imagem">
+		<textarea cols="80" id="editor1" name="personagem.per_descricao" rows="10">
+	${personagem?.per_descricao}
+		</textarea>
+		 <input type="submit" class="btn btn-primary"></input>
+		#{/form} 
+	
+    

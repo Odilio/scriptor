@@ -1,0 +1,91 @@
+
+#{extends 'template.html'/}
+
+<script src="@{'/public/javascripts/modernizr.custom.js'}"></script>
+<link href="@{'/public/stylesheets/book.css'}" rel="stylesheet">
+<link href="@{'/public/stylesheets/normalize.css'}" rel="stylesheet">
+<body style=" margin: 0px;padding: 0px; font-style: courier" >
+
+
+  
+
+#{include 'main.html'/}
+
+<br>
+         	
+         <div id="container" style="float: left;width: 83%;">
+        
+ #{if livros?.pro_codigo}
+ 
+            <br>
+  <div id="main" role="main">
+
+      <ul class="align">
+ #{list items:livros, as:'livros'}
+
+  <li>
+						<figure class='book'>
+
+						<!-- Front -->
+
+							<ul class='hardcover_front'>
+								<li>
+									<img src="@{Projetos.projetoPhoto(livros.pro_codigo)}" alt="" width="100%" height="100%">
+								</li>
+								<li></li>
+							</ul>
+
+						<!-- Pages -->
+
+							<ul class='page'>
+								<li></li>
+								<li>
+									<a class="btn" href="@{Livros.perfil(livros)}">Ler</a>
+								</li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+
+						<!-- Back -->
+
+							<ul class='hardcover_back'>
+								<li></li>
+								<li></li>
+							</ul>
+							<ul class='book_spine'>
+								<li></li>
+								<li></li>
+							</ul>
+							<figcaption>
+								<h1>${livros.pro_titulo}</h1>
+								<span>By ${livros.pro_nome_usuario}</span>
+								<p>Fennel bamboo shoot pea sprouts rutabaga parsnip green bean gram wattle seed lentil horseradish nori. Grape lettuce turnip greens.</p>
+							</figcaption>
+						</figure>
+					</li>
+      
+        
+ 
+  
+  #{/list}
+   </ul>
+
+    </div>
+             #{/if}
+             <br>
+
+ 
+
+         </span>
+
+      
+     </div>
+
+ #{include 'buscalivro.html'/}
+
+
+  
+</body>
+
+</html>

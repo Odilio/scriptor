@@ -1,0 +1,64 @@
+#{extends 'template.html'/}
+<link href="@{'/public/stylesheets/bookshelf_slider.css'}" rel="stylesheet">
+<link href="@{'/public/stylesheets/skin01.css'}" rel="stylesheet">
+
+
+<body>
+
+#{include 'main.html'/}
+<br>
+<div id="bookshelf_slider">
+ #{include 'panelperfil.html'/}
+    <div class="panel_title">
+        <div class="selected_title_box"><div class="selected_title">Selected Title</div></div>
+
+        <div class="menu_top">
+            <ul>
+                <li class="show_hide_titles"><a href="#">Recomendação</a></li>
+                <li class="show_hide_icons"><a href="#">Alfabética</a></li>
+            </ul>
+        </div>
+    </div><!-- .panel_title -->
+
+    <div class="panel_slider">
+    	<div class="panel_items">
+
+            <div class="slide_animate">
+            	<div class="products_box" id="products_box_1">
+            	#{if !lista?.pro_codigo}
+            		PARA ADICIONAR LIVROS A SUA BIBLIOTECA, VÁ EM LIVROS, ESCOLHA UM E CLIQUE EM ADICIONAR A BIBLIOTECA COMO MOSTRADO NA IMAGEM
+            		 <a href="@{Livros.index()}"><div class="product" data-type="magazineaa" data-popup="true" data-url="images/magazine_large.png" ><img src="@{'/public/images/rede5.png'}"alt="" width="800" height="250" /></div>
+            	  </a>
+            	#{/if}
+                   #{list items:lista, as:'product'}
+          
+            <a href="@{Livros.perfil(product)}"><div class="product" data-type="magazineaa" data-popup="true" data-url="images/magazine_large.png" ><img src="@{Projetos.projetoPhoto(product?.pro_codigo)}" alt="" width="80" height="110" /></div>
+             </a>
+             #{/list}
+             
+           
+                </div>
+            </div>
+
+            <div class="slide_animate">
+            	<div class="products_box" id="products_box_2">
+                	</div>
+            </div>
+
+            <div class="slide_animate">
+            	<div class="products_box" id="products_box_3">
+						</div>
+            </div>
+
+          
+
+        </div><!-- panel_items -->
+    </div><!-- panel_slider -->
+
+   
+
+</div><!-- bookshelf_slider -->
+
+
+	</body>
+	

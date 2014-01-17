@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Twitter Timeline with jQuery & CSS - php freelancer, web developer chennai</title>
+<link rel='stylesheet'  href='css/style.css' type='text/css' media='all' />
+<link rel='stylesheet'  href="css/jquery.minitwitter.css" type='text/css' media='all' />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type='text/javascript' src='js/jquery.minitwitter.js'></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+$('.events').miniTwitter('Rommanel');
+
+$(".fetch").click(function() {
+  var twitter_username = $("#username").val();
+  if(twitter_username != 'Enter twitter username...') {
+	  $('.events').empty();
+	  $('.events').miniTwitter(twitter_username);
+	  $('#tname').html(twitter_username+' timeline');
+
+  } else {
+	  alert('Enter Twitter Username');
+  }
+});
+});
+
+</script>
+
+</head>
+<body style="background:#000">
+<div style="margin:0 auto; width:60%; background:#FF0000;">
+<h2 style="text-align:center; margin:10px;"><a href="http://itzurkarthi.com" style="color:#FF0000; font-size:26px; text-decoration:none"></a></h2>
+<div style="margin:10px; padding:10px;">
+
+</div>
+  <div class="timeline"><a href="#" class="timeline_spine"></a>
+    <div class="section" id="2012">
+      <div class="title"><a href="#" id="tname">Rommanel com você!</a></div>
+       <ol class="events">
+
+       </ol>
+    </div>
+  </div>
+</div>
+
+
+<div class="addthis_toolbox addthis_floating_style addthis_counter_style" style="left:50px;top:50px;">
+
+<a class="addthis_button_facebook_like" fb:like:layout="box_count"></a>
+
+<a class="addthis_button_tweet" tw:count="vertical"></a>
+
+<a class="addthis_button_google_plusone" g:plusone:size="tall"></a>
+
+<a class="addthis_counter"></a>
+
+</div>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4fae5bbe69fd40f0"></script>
+
+<div id="fbplikebox" class="fbpl_right" style="display:none;width:300px; height:300px;" data-offset="150px" data-width="300px" data-height="300px">
+				<div class="fbplbadge" style="background-color:#3B5998;"></div>
+
+			</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+
+	var dur = "medium"; // Duration of Animation
+	var offset = jQuery("#fbplikebox").attr("data-offset"); // Offset
+	if (jQuery("#fbplikebox").hasClass("fbpl_right")) {
+		var margin = "-" + jQuery("#fbplikebox").attr("data-width"); // Width of Likebox
+		jQuery("#fbplikebox").css({
+			marginRight: margin,
+			top: offset
+		});
+		jQuery("#fbplikebox").hover(function () {
+			jQuery(this).stop().animate({
+				marginRight: 0
+			}, dur);
+		}, function () {
+			jQuery(this).stop().animate({
+				marginRight: margin
+			}, dur);
+		});
+	}
+	// Show the Likebox
+	jQuery("#fbplikebox").show();
+});
+</script>
+
+</body>
+</html>
